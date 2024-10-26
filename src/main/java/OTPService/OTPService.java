@@ -26,7 +26,7 @@ public class OTPService {
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, "ljgdhcmzacynaofn");
+                return new PasswordAuthentication(from, "APP_PASSWORD");
             }
 
         });
