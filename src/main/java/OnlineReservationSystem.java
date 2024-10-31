@@ -147,7 +147,7 @@ public class OnlineReservationSystem {
 
                                 int rowsAffected = preparedStatement.executeUpdate();
                                 System.out.println(rowsAffected > 0 ? "Record added successfully." : "No records were added.");
-                                System.out.println("PNR number is " + pnrNumber);
+                                System.out.println("PNR number is " + pnrNumber + "\n");
                             } catch (SQLException e) {
                                 System.err.println("SQLException: " + e.getMessage());
                             }
@@ -183,7 +183,7 @@ public class OnlineReservationSystem {
                                         System.out.println("--------------------------------\n");
                                     }
                                     if (!hasRecords) {
-                                        System.out.println("No records found for email: " + email);
+                                        System.out.println("No records found for email: " + email+ "\n");
                                     }
                                 }
                             } catch (SQLException e) {
