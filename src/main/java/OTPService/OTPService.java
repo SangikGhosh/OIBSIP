@@ -12,7 +12,54 @@ public class OTPService {
         OTP = String.format("%04d", random.nextInt(10000));
         return OTP;
     }
-    public static void sendOTP(String email, String genOTP) {
+    public static void sendOTPRS(String email, String genOTP) {
+        String to = email;
+        String from = "sangik.ghosh1@gmail.com";
+        String host = "smtp.gmail.com";
+        Properties properties = System.getProperties();
+
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, "ljgdhcmzacynaofn");
+            }
+
+        });
+        session.setDebug(true);
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("Message from Online Reservation System");
+            message.setText("Your One time Password is " + genOTP);
+
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
+
+    public static boolean checkOTPRS(String email) {
+        String OTP = OTPService.genOTP();
+        OTPService.sendOTPRS(email ,OTP);
+        System.out.println("Enter the OTP receive on mail: ");
+        Scanner sc = new Scanner(System.in);
+        String enOTP = sc.nextLine();
+        if(OTP.equals(enOTP)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void sendOTPOE(String email, String genOTP) {
         String to = email;
         String from = "sangik.ghosh1@gmail.com";
         String host = "smtp.gmail.com";
@@ -36,19 +83,19 @@ public class OTPService {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Message from File Hider Service");
-            message.setText("Your One time Password for File Hider Service is " + genOTP);
+            message.setSubject("Message from Online Examination System");
+            message.setText("Your One time Password is " + genOTP);
 
             Transport.send(message);
-            System.out.println("Sent message successfully....");
+            System.out.println("Message sent successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
     }
 
-    public static boolean checkOTP(String email) {
+    public static boolean checkOTPOE(String email) {
         String OTP = OTPService.genOTP();
-        OTPService.sendOTP(email ,OTP);
+        OTPService.sendOTPOE(email ,OTP);
         System.out.println("Enter the OTP receive on mail: ");
         Scanner sc = new Scanner(System.in);
         String enOTP = sc.nextLine();

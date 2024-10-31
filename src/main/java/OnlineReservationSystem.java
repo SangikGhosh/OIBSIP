@@ -106,7 +106,7 @@ public class OnlineReservationSystem {
         System.out.print("Enter Password: ");
         String password = sc.next().trim();
 
-        if (auth.authenticateUser(chs, username, email, password)) {
+        if (auth.authenticateUserReservationSystem(chs, username, email, password)) {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 try (Connection connection = DriverManager.getConnection(url, dbusername, dbpassword)) {
